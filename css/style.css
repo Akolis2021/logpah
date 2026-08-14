@@ -179,7 +179,7 @@ input,textarea{font-family:inherit;font-size:1rem;}
   font-family:var(--font-display);
   font-size:1.05rem;
   letter-spacing:.14em;
-  color:var(--navy-950);
+  color:var(--cream-50);
   line-height:1.05;
 }
 .site-header.is-scrolled .brand__word{ color:var(--cream-50); }
@@ -189,7 +189,7 @@ input,textarea{font-family:inherit;font-size:1rem;}
   font-size:.55rem;
   font-weight:700;
   letter-spacing:.2em;
-  color:var(--gold-700);
+  color:var(--gold-400);
   margin-top:.15rem;
 }
 
@@ -200,7 +200,7 @@ input,textarea{font-family:inherit;font-size:1rem;}
   font-size:.85rem;
   font-weight:600;
   letter-spacing:.03em;
-  color:var(--navy-950);
+  color:var(--cream-100);
   padding:.3rem 0;
 }
 .site-header.is-scrolled .main-nav__links a{ color:var(--cream-100); }
@@ -213,7 +213,7 @@ input,textarea{font-family:inherit;font-size:1rem;}
 }
 .main-nav__links a:hover::after,
 .main-nav__links a[aria-current="page"]::after{ right:0; }
-.main-nav__links a[aria-current="page"]{ color:var(--gold-700); }
+.main-nav__links a[aria-current="page"]{ color:var(--gold-400); }
 .site-header.is-scrolled .main-nav__links a[aria-current="page"]{ color:var(--gold-400); }
 
 .btn{
@@ -253,7 +253,7 @@ input,textarea{font-family:inherit;font-size:1rem;}
 }
 .nav-toggle span{
   width:22px;height:2px;
-  background:var(--navy-950);
+  background:var(--cream-50);
   transition:transform .3s, opacity .3s, background-color .3s;
 }
 .site-header.is-scrolled .nav-toggle span{ background:var(--cream-50); }
@@ -987,6 +987,94 @@ section{ position:relative; }
   .masonry{ columns:1 100%; }
 }
 
+/* -------------------- Custom Cursor -------------------- */
+.cursor-dot{
+  position:fixed;
+  top:0; left:0;
+  width:18px; height:18px;
+  border-radius:50%;
+  background:radial-gradient(circle, var(--gold-400), var(--gold-700));
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:screen;
+  opacity:0;
+  transform:translate(-50%,-50%);
+  transition:width .35s var(--ease-silk), height .35s var(--ease-silk), opacity .35s;
+  will-change:transform;
+}
+.cursor-dot.is-visible{ opacity:1; }
+.cursor-dot.is-active{
+  width:48px; height:48px;
+  background:radial-gradient(circle, rgba(228,197,116,.35), rgba(228,197,116,.08));
+  mix-blend-mode:normal;
+  border:1px solid rgba(228,197,116,.5);
+}
+/* Hide on touch / mobile */
+@media (hover: none), (pointer: coarse){
+  .cursor-dot{ display:none !important; }
+}
+
+/* -------------------- Floating Particles -------------------- */
+.particle{
+  position:absolute;
+  width:4px; height:4px;
+  border-radius:50%;
+  background:var(--gold-500);
+  opacity:0;
+  pointer-events:none;
+  will-change:transform, opacity;
+}
+.particle--lg{ width:6px; height:6px; }
+.particle--sm{ width:2px; height:2px; }
+
+/* -------------------- Text Split Reveals -------------------- */
+.word-wrap{
+  overflow:hidden;
+  display:inline-block;
+  vertical-align:top;
+}
+.word-wrap .word{
+  display:inline-block;
+  will-change:transform, opacity;
+}
+
+/* -------------------- Image Clip Reveals -------------------- */
+.clip-reveal{
+  clip-path:inset(0 100% 0 0);
+  will-change:clip-path;
+}
+.clip-reveal--right{
+  clip-path:inset(0 0 0 100%);
+}
+.clip-reveal--up{
+  clip-path:inset(100% 0 0 0);
+}
+
+/* -------------------- Performance Hints -------------------- */
+.hero__visual,
+.badge-10__spin,
+.split__media img,
+.decade-panel__frame img,
+.pillar-card{
+  will-change:transform;
+}
+
+/* -------------------- Magnetic Button Hover Glow -------------------- */
+[data-magnetic]{
+  position:relative;
+  will-change:transform;
+}
+[data-magnetic]::before{
+  content:'';
+  position:absolute; inset:-6px;
+  border-radius:inherit;
+  background:radial-gradient(circle, rgba(228,197,116,.18), transparent 70%);
+  opacity:0;
+  transition:opacity .4s;
+  pointer-events:none;
+}
+[data-magnetic]:hover::before{ opacity:1; }
+
 /* -------------------- Reduced motion -------------------- */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
@@ -995,5 +1083,11 @@ section{ position:relative; }
   [data-reveal]{ opacity:1; transform:none; }
   ::view-transition-old(root),
   ::view-transition-new(root){ animation:none; }
+  .cursor-dot{ display:none !important; }
+  .particle{ display:none !important; }
+  .clip-reveal,
+  .clip-reveal--right,
+  .clip-reveal--up{ clip-path:none; }
+  .word-wrap .word{ opacity:1 !important; transform:none !important; }
   *{ transition-duration:.01ms !important; animation-duration:.01ms !important; }
 }
