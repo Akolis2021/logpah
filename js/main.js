@@ -12,6 +12,21 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isTouch = window.matchMedia("(hover: none)").matches || "ontouchstart" in window;
 
+  // Resolves the moment the curtain actually starts sliding away (dispatched
+  // from initCurtain), or immediately if there's no curtain / motion is
+  // reduced. The hero entrance and hero laurel-ring key off this instead of
+  // a guessed fixed delay, so they stay in sync even when the curtain's own
+  // wait stretches out on a slow connection.
+  const curtainExit = new Promise((resolve) => {
+    const curtain = document.querySelector(".curtain");
+    if (!curtain || reduceMotion || !window.gsap) {
+      resolve();
+      return;
+    }
+    document.addEventListener("logpah:curtain-exit", () => resolve(), { once: true });
+    setTimeout(resolve, 4200); // safety net if the event never fires
+  });
+
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
   }
@@ -19,6 +34,8 @@
   document.addEventListener("DOMContentLoaded", () => {
     footerYear();
     duplicateMarquee();
+    initImageSkeletons();
+    initMasonryGrid();
     initCurtain();
     initHeaderScroll();
     initNavToggle();
@@ -41,13 +58,45 @@
     initFooterEntrance();
     initDecadePanelParallax();
     initTileGridAnimations();
+    initMemberCardsReveal();
   });
 
   /* =====================================================================
      EXISTING CORE FUNCTIONS (preserved & enhanced)
      ===================================================================== */
 
-  /* ---------------- Footer year ---------------- */
+  /* ---------------- Image loading skeletons ----------------
+     Every content image gets a branded shimmer placeholder (matching
+     the section it's in) until it actually finishes decoding, then a
+     short blur-to-sharp resolve. On a fast connection this is
+     invisible — images are already .complete by the time this runs.
+     On a slow one, visitors always see an intentional loading state
+     instead of a blank box or a broken-image icon. */
+  function initImageSkeletons() {
+    const imgs = document.querySelectorAll("img:not(.brand__mark)");
+    if (!imgs.length) return;
+
+    imgs.forEach((img) => {
+      img.classList.add("img-fade");
+
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add("img-loaded");
+        return;
+      }
+
+      img.classList.add("img-skel");
+
+      const settle = (loaded) => {
+        img.classList.remove("img-skel");
+        if (loaded) img.classList.add("img-loaded");
+      };
+
+      img.addEventListener("load", () => settle(true), { once: true });
+      img.addEventListener("error", () => settle(false), { once: true });
+    });
+  }
+
+
   function footerYear() {
     document.querySelectorAll("[data-year]").forEach((el) => {
       el.textContent = new Date().getFullYear();
@@ -61,7 +110,15 @@
     });
   }
 
-  /* ---------------- Curtain preloader ---------------- */
+  /* ---------------- Curtain preloader ----------------
+     This used to be a fixed-length animation that played on a timer
+     regardless of whether anything had actually loaded — fine on a
+     fast connection, but on a slow one the curtain would open onto
+     half-loaded images. It now waits on real signals:
+       - document fonts ready (avoids a flash of fallback serif)
+       - the hero's critical image, if one exists on this page
+     ...bounded by a minimum (so it never feels like a flicker) and a
+     maximum (so a stalled request can never trap someone behind it). */
   function initCurtain() {
     const curtain = document.querySelector(".curtain");
     if (!curtain) return;
@@ -71,26 +128,57 @@
       return;
     }
 
-    const panels = curtain.querySelectorAll(".curtain__panel");
-    const tl = gsap.timeline({
-      defaults: { ease: "power4.inOut" },
-      onComplete: () => curtain.remove(),
+    const MIN_DISPLAY = 900; // ms — keeps the brand moment from flashing
+    const MAX_WAIT = 3200; // ms — hard ceiling so slow connections aren't stuck
+    const WAITING_LABEL_AT = 1800; // ms — show a "still working" pulse past this point
+
+    const mark = curtain.querySelector(".curtain__mark");
+    const start = performance.now();
+
+    const heroImg = document.querySelector(
+      ".hero .laurel-frame__photo img, .hero__visual img"
+    );
+
+    const fontsReady = document.fonts && document.fonts.ready
+      ? document.fonts.ready.catch(() => {})
+      : Promise.resolve();
+
+    const heroReady = new Promise((resolve) => {
+      if (!heroImg || (heroImg.complete && heroImg.naturalWidth > 0)) {
+        resolve();
+        return;
+      }
+      heroImg.addEventListener("load", resolve, { once: true });
+      heroImg.addEventListener("error", resolve, { once: true });
     });
-    tl.to(curtain.querySelector(".curtain__mark"), {
-      opacity: 0,
-      duration: 0.35,
-      delay: 0.25,
-    })
-      .to(
-        panels[0],
-        { xPercent: -100, duration: 0.9 },
-        "-=0.05"
-      )
-      .to(
-        panels[1],
-        { xPercent: 100, duration: 0.9 },
-        "<"
-      );
+
+    const waitingTimer = setTimeout(() => {
+      mark && mark.classList.add("is-waiting");
+    }, WAITING_LABEL_AT);
+
+    const readySignal = Promise.race([
+      Promise.all([fontsReady, heroReady]),
+      new Promise((resolve) => setTimeout(resolve, MAX_WAIT)),
+    ]);
+
+    readySignal.then(() => {
+      clearTimeout(waitingTimer);
+      const elapsed = performance.now() - start;
+      const remaining = Math.max(0, MIN_DISPLAY - elapsed);
+      setTimeout(playCurtainExit, remaining);
+    });
+
+    function playCurtainExit() {
+      document.dispatchEvent(new CustomEvent("logpah:curtain-exit"));
+      const panels = curtain.querySelectorAll(".curtain__panel");
+      const tl = gsap.timeline({
+        defaults: { ease: "power4.inOut" },
+        onComplete: () => curtain.remove(),
+      });
+      tl.to(mark, { opacity: 0, duration: 0.35 })
+        .to(panels[0], { xPercent: -100, duration: 0.9 }, "-=0.05")
+        .to(panels[1], { xPercent: 100, duration: 0.9 }, "<");
+    }
   }
 
   /* ---------------- Header shrink on scroll ---------------- */
@@ -242,7 +330,7 @@
     const isStackedLayout = window.matchMedia("(max-width: 980px)").matches;
 
     const tl = gsap.timeline({
-      delay: reduceMotion ? 0 : 1.05,
+      paused: true,
       defaults: { ease: "power3.out", duration: 1 },
     });
 
@@ -277,6 +365,10 @@
           "-=1"
         );
     }
+
+    // Play as soon as the curtain clears (or immediately if reduced motion
+    // resolved that promise instantly) — never on a fixed guessed delay.
+    curtainExit.then(() => tl.play());
   }
 
   /* ---------------- Laurel ring draw ---------------- */
@@ -292,17 +384,30 @@
     paths.forEach((path) => {
       const length = path.getTotalLength ? path.getTotalLength() : 900;
       gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        duration: 1.8,
-        ease: "power2.inOut",
-        delay: 1.3,
-        scrollTrigger: {
-          trigger: path.closest(".laurel-frame, .hero__visual") || path,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      });
+
+      const runDraw = () => {
+        gsap.to(path, {
+          strokeDashoffset: 0,
+          duration: 1.8,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: path.closest(".laurel-frame, .hero__visual") || path,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      };
+
+      // The hero's laurel ring is above the fold and hidden behind the
+      // curtain, so it should wait for the same exit signal as the rest of
+      // the hero. Laurel rings elsewhere on the page (e.g. a leadership
+      // portrait further down) are below the fold anyway, so they just use
+      // their normal scroll trigger with no artificial delay.
+      if (path.closest(".hero")) {
+        curtainExit.then(runDraw);
+      } else {
+        runDraw();
+      }
     });
   }
 
@@ -383,6 +488,57 @@
       } else {
         run();
       }
+    });
+  }
+
+  /* ---------------- Masonry grid (gallery.html) ----------------
+     .masonry is a CSS Grid with a tiny grid-auto-rows (8px). Each tile's
+     grid-row-end: span is set here to exactly match its image's natural
+     rendered height, so wide landscape shots stay short and portraits
+     stay tall — nothing gets cropped to a uniform box. Recomputes on
+     image load (since most tiles use loading="lazy") and on resize. */
+  function initMasonryGrid() {
+    const grid = document.querySelector(".masonry");
+    if (!grid) return;
+
+    const ROW = 8; // must match grid-auto-rows in CSS
+    let gap = 19.2; // fallback ~1.2rem, corrected below once measurable
+
+    const readGap = () => {
+      const g = parseFloat(getComputedStyle(grid).rowGap);
+      if (!isNaN(g)) gap = g;
+    };
+
+    const setSpan = (item) => {
+      const img = item.querySelector("img");
+      if (!img) return;
+      const h = img.getBoundingClientRect().height;
+      if (!h) return;
+      const span = Math.ceil((h + gap) / (ROW + gap));
+      item.style.setProperty("--span", span);
+    };
+
+    const layoutAll = () => {
+      readGap();
+      grid.querySelectorAll(".masonry__item").forEach(setSpan);
+    };
+
+    grid.querySelectorAll("img").forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) return;
+      img.addEventListener(
+        "load",
+        () => setSpan(img.closest(".masonry__item")),
+        { once: true }
+      );
+    });
+
+    layoutAll();
+    window.addEventListener("load", layoutAll);
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layoutAll, 150);
     });
   }
 
@@ -1007,6 +1163,47 @@
           ease: "power2.inOut",
           overwrite: "auto",
         });
+      });
+    });
+  }
+  /* ================ 12. Member Cards Fan-In (members.html) ================ */
+  function initMemberCardsReveal() {
+    if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
+
+    const cards = document.querySelectorAll(".member-card");
+    if (!cards.length) return;
+
+    cards.forEach((card, i) => {
+      gsap.set(card, {
+        opacity: 0,
+        y: 40,
+        rotationX: 10,
+        scale: 0.94,
+        transformOrigin: "center bottom",
+      });
+
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        scale: 1,
+        duration: 0.75,
+        ease: "power3.out",
+        delay: (i % 6) * 0.08,
+        scrollTrigger: {
+          trigger: card.closest(".member-grid") || card,
+          start: "top 88%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    cards.forEach((card) => {
+      card.addEventListener("mouseenter", () => {
+        gsap.to(card, { y: -6, duration: 0.4, ease: "power2.out", overwrite: "auto" });
+      });
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, { y: 0, duration: 0.5, ease: "power2.inOut", overwrite: "auto" });
       });
     });
   }
