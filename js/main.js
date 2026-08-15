@@ -151,25 +151,49 @@
       visual: hero.querySelector(".hero__visual"),
     };
 
+    // Below 980px the CSS reorders .hero__visual above the copy block
+    // (see .hero__visual{ order:-1 } in the responsive styles), so the
+    // reveal sequence needs to match — visual first, then copy — or the
+    // portrait appears to "pop in" last even though it's the first thing
+    // on screen.
+    const isStackedLayout = window.matchMedia("(max-width: 980px)").matches;
+
     const tl = gsap.timeline({
       delay: reduceMotion ? 0 : 1.05,
       defaults: { ease: "power3.out", duration: 1 },
     });
 
-    if (targets.eyebrow) tl.from(targets.eyebrow, { y: 18, opacity: 0 });
-    if (targets.title)
-      tl.from(targets.title, { y: 34, opacity: 0, duration: 1.1 }, "-=0.65");
-    if (targets.lede) tl.from(targets.lede, { y: 24, opacity: 0 }, "-=0.7");
-    if (targets.actions)
-      tl.from(targets.actions, { y: 20, opacity: 0 }, "-=0.7");
-    if (targets.stats && targets.stats.length)
-      tl.from(targets.stats, { y: 16, opacity: 0, stagger: 0.12 }, "-=0.6");
-    if (targets.visual)
-      tl.from(
-        targets.visual,
-        { scale: 0.9, opacity: 0, duration: 1.2, ease: "power4.out" },
-        "-=1"
-      );
+    if (isStackedLayout && targets.visual) {
+      tl.from(targets.visual, {
+        scale: 0.9,
+        opacity: 0,
+        duration: 1.1,
+        ease: "power4.out",
+      });
+      if (targets.eyebrow) tl.from(targets.eyebrow, { y: 18, opacity: 0 }, "-=0.5");
+      if (targets.title)
+        tl.from(targets.title, { y: 34, opacity: 0, duration: 1.1 }, "-=0.65");
+      if (targets.lede) tl.from(targets.lede, { y: 24, opacity: 0 }, "-=0.7");
+      if (targets.actions)
+        tl.from(targets.actions, { y: 20, opacity: 0 }, "-=0.7");
+      if (targets.stats && targets.stats.length)
+        tl.from(targets.stats, { y: 16, opacity: 0, stagger: 0.12 }, "-=0.6");
+    } else {
+      if (targets.eyebrow) tl.from(targets.eyebrow, { y: 18, opacity: 0 });
+      if (targets.title)
+        tl.from(targets.title, { y: 34, opacity: 0, duration: 1.1 }, "-=0.65");
+      if (targets.lede) tl.from(targets.lede, { y: 24, opacity: 0 }, "-=0.7");
+      if (targets.actions)
+        tl.from(targets.actions, { y: 20, opacity: 0 }, "-=0.7");
+      if (targets.stats && targets.stats.length)
+        tl.from(targets.stats, { y: 16, opacity: 0, stagger: 0.12 }, "-=0.6");
+      if (targets.visual)
+        tl.from(
+          targets.visual,
+          { scale: 0.9, opacity: 0, duration: 1.2, ease: "power4.out" },
+          "-=1"
+        );
+    }
   }
 
   /* ---------------- Laurel ring draw ---------------- */
