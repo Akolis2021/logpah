@@ -110,31 +110,114 @@
     const links = document.querySelector(".main-nav__links");
     if (!toggle || !links) return;
 
-    toggle.addEventListener("click", () => {
-      const isOpen = links.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", String(isOpen));
-      if (isOpen) {
-        links.style.display = "flex";
-        links.style.flexDirection = "column";
-        links.style.position = "fixed";
-        links.style.top = "72px";
-        links.style.left = "0";
-        links.style.right = "0";
-        links.style.padding = "1.5rem 2rem 2rem";
-        links.style.background = "rgba(8,15,36,.97)";
-        links.style.backdropFilter = "blur(14px)";
-      } else {
-        links.removeAttribute("style");
+    const items = links.querySelectorAll("li");
+    const mq = window.matchMedia("(max-width: 980px)");
+    let isOpen = false;
+    let animating = false;
+
+    // Only the mobile panel gets primed with GSAP inline styles — on desktop
+    // the nav stays a plain visible flex row, untouched.
+    const primeForMobile = () => {
+      if (!window.gsap) return;
+      gsap.set(links, {
+        autoAlpha: 0,
+        y: -18,
+        scaleY: 0.9,
+        transformOrigin: "top center",
+      });
+      gsap.set(items, { autoAlpha: 0, y: -10 });
+    };
+
+    const resetForDesktop = () => {
+      isOpen = false;
+      links.classList.remove("is-open");
+      toggle.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      if (window.gsap) {
+        gsap.set(links, { clearProps: "all" });
+        gsap.set(items, { clearProps: "all" });
       }
+    };
+
+    if (mq.matches) primeForMobile();
+    if (mq.addEventListener) {
+      mq.addEventListener("change", (e) => {
+        e.matches ? primeForMobile() : resetForDesktop();
+      });
+    }
+
+    const openMenu = () => {
+      toggle.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+
+      if (!window.gsap) {
+        links.classList.add("is-open");
+        return;
+      }
+      animating = true;
+      links.classList.add("is-open");
+      const tl = gsap.timeline({ onComplete: () => (animating = false) });
+      tl.to(links, {
+        autoAlpha: 1,
+        y: 0,
+        scaleY: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+      }).to(
+        items,
+        { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06, ease: "power2.out" },
+        "-=0.32"
+      );
+    };
+
+    const closeMenu = () => {
+      toggle.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+
+      if (!window.gsap) {
+        links.classList.remove("is-open");
+        return;
+      }
+      animating = true;
+      gsap.to(items, { autoAlpha: 0, y: -8, duration: 0.18, ease: "power1.in" });
+      gsap.to(links, {
+        autoAlpha: 0,
+        y: -18,
+        scaleY: 0.9,
+        duration: 0.35,
+        ease: "power2.in",
+        delay: 0.05,
+        onComplete: () => {
+          links.classList.remove("is-open");
+          animating = false;
+        },
+      });
+    };
+
+    toggle.addEventListener("click", () => {
+      if (!mq.matches || animating) return;
+      isOpen = !isOpen;
+      isOpen ? openMenu() : closeMenu();
     });
 
     links.querySelectorAll("a").forEach((a) =>
       a.addEventListener("click", () => {
-        links.classList.remove("is-open");
-        links.removeAttribute("style");
-        toggle.setAttribute("aria-expanded", "false");
+        if (mq.matches && isOpen) {
+          isOpen = false;
+          closeMenu();
+        }
       })
     );
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        isOpen = false;
+        closeMenu();
+      }
+    });
   }
 
   /* ---------------- Hero entrance timeline ---------------- */

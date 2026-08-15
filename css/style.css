@@ -264,9 +264,15 @@ input,textarea{font-family:inherit;font-size:1rem;}
 .nav-toggle{
   display:none;
   flex-direction:column;
+  justify-content:center;
+  align-items:center;
   gap:5px;
+  width:40px;
+  height:40px;
   padding:.5rem;
   flex-shrink: 0;
+  position:relative;
+  z-index:120;
 }
 
 /* CTA duplicated inside the mobile menu list — hidden on desktop,
@@ -275,9 +281,15 @@ input,textarea{font-family:inherit;font-size:1rem;}
 .nav-toggle span{
   width:22px;height:2px;
   background:var(--cream-50);
-  transition:transform .3s, opacity .3s, background-color .3s;
+  transform-origin:center;
+  transition:transform .4s var(--ease-silk), opacity .25s var(--ease-silk), background-color .3s;
 }
 .site-header.is-scrolled .nav-toggle span{ background:var(--cream-50); }
+
+/* Hamburger -> X */
+.nav-toggle.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2){ opacity:0; transform:scaleX(0); }
+.nav-toggle.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
 /* -------------------- Hero -------------------- */
 .hero{
@@ -982,16 +994,46 @@ section{ position:relative; }
 
 /* -------------------- Responsive -------------------- */
 @media (max-width: 980px){
-  .main-nav__links{ display:none; }
   .nav-toggle{ display:flex; }
   .site-header .wrap { gap: 1rem; }
 
   /* Hide the standalone header CTA on mobile — it moves into the nav menu instead */
   .main-nav > .btn--gold{ display:none; }
+
+  /* Dropdown panel: position:absolute anchors it to the fixed .site-header,
+     so top:100% always sits flush against the header's actual bottom edge —
+     no hardcoded pixel gap to fall out of sync with. Visibility/opacity/transform
+     are driven by GSAP (autoAlpha) via the .is-open class toggled in main.js. */
+  .main-nav__links{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    margin:0;
+    padding:.5rem 2rem 1.6rem;
+    background:rgba(8,15,36,.97);
+    backdrop-filter:blur(18px) saturate(1.3);
+    -webkit-backdrop-filter:blur(18px) saturate(1.3);
+    border-bottom:1px solid rgba(228,197,116,.18);
+    box-shadow:0 30px 50px -24px rgba(8,15,36,.75);
+  }
+  .main-nav__links li{
+    width:100%;
+    border-bottom:1px solid rgba(228,197,116,.08);
+  }
+  .main-nav__links li:last-child{ border-bottom:none; }
+  .main-nav__links li:not(.main-nav__cta) > a{
+    display:block;
+    padding:1rem 0;
+    font-size:1.05rem;
+  }
   .main-nav__cta{
     display:block;
-    margin-top:1.4rem;
-    padding-top:1.4rem;
+    margin-top:1.2rem;
+    padding-top:1.2rem;
     border-top:1px solid rgba(228,197,116,.18);
   }
   .main-nav__cta .btn{ width:100%; justify-content:center; }
