@@ -100,10 +100,13 @@ input,textarea{font-family:inherit;font-size:1rem;}
   text-transform:uppercase;
 }
 .eyebrow::before{
-  content:'';
-  width:26px;height:1px;
-  background:currentColor;
-  opacity:.6;
+  content:'✦';
+  display:inline-block;
+  color:currentColor;
+  opacity:.85;
+  font-size:.85em;
+  line-height:1;
+  transform:translateY(-1px);
 }
 
 .serif-italic{font-style:italic;font-weight:500;}
@@ -863,7 +866,9 @@ section{ position:relative; }
    computed in JS from its actual rendered image height (see
    initMasonryGrid in main.js). This keeps every photo's natural
    proportions — wide landscape shots stay short, portraits stay tall —
-   instead of forcing everything into uniform crops. */
+   instead of forcing everything into uniform crops. grid-auto-flow:dense
+   lets the grid backfill any short column with a later tile instead of
+   leaving empty space, which is what a masonry layout needs to avoid gaps. */
 .masonry{
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
@@ -895,16 +900,6 @@ section{ position:relative; }
 }
 .masonry__item:hover img{ transform:scale(1.06); }
 
-/* A soft permanent gradient so every tile reads as a designed card rather
-   than a raw dropped-in photo, even before hover. */
-.masonry__item::before{
-  content:'';
-  position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(8,15,36,0) 58%, rgba(8,15,36,.55) 100%);
-  pointer-events:none;
-  z-index:1;
-}
-
 /* Always-visible category tag, top-left of every tile */
 .masonry__tag{
   position:absolute; top:.9rem; left:.9rem;
@@ -922,20 +917,25 @@ section{ position:relative; }
   color:var(--gold-400);
 }
 
+/* Caption plate: a solid label fixed to the bottom of every tile, always
+   visible — the photo itself stays bright and uncropped, only this band
+   carries the dark background. Hover just deepens it slightly. */
 .masonry__item figcaption{
   position:absolute; left:0; right:0; bottom:0;
   z-index:2;
-  padding:2.2rem 1rem .9rem;
-  font-family:var(--font-display);
-  font-style:italic;
-  font-size:.98rem;
+  padding:.85rem 1rem;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:.82rem;
+  letter-spacing:.01em;
   color:var(--cream-50);
-  background:linear-gradient(0deg, rgba(8,15,36,.9), transparent);
-  opacity:0;
-  transform:translateY(10px);
-  transition:opacity .35s var(--ease-silk), transform .35s var(--ease-silk);
+  background:linear-gradient(0deg, rgba(8,15,36,.95), rgba(8,15,36,.8));
+  border-top:1px solid rgba(228,197,116,.22);
+  transition:background-color .4s var(--ease-silk);
 }
-.masonry__item:hover figcaption{ opacity:1; transform:translateY(0); }
+.masonry__item:hover figcaption{
+  background:linear-gradient(0deg, rgba(8,15,36,1), rgba(8,15,36,.9));
+}
 
 /* Lightbox */
 .lightbox{
@@ -1044,6 +1044,72 @@ section{ position:relative; }
 .field textarea{ resize:vertical; min-height:120px; }
 .form-note{ font-size:.82rem; color:var(--ink-500); margin-top:1rem; }
 
+/* -------------------- Album placeholders (gallery.html) --------------------
+   Every album slot renders as a real <img>, pointed at
+   images/placeholder-photo.svg by default. Adding a real photo later is
+   just editing that src path, nothing else changes. */
+.album-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:1.2rem;
+}
+.album-tile{
+  margin:0;
+  aspect-ratio:4/3;
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  border:1px solid var(--cream-200);
+  background:var(--cream-100);
+  box-shadow:0 18px 34px -24px rgba(23,21,15,.35);
+  transition:transform .5s var(--ease-silk), box-shadow .5s var(--ease-silk), border-color .5s var(--ease-silk);
+}
+.album-tile:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold-500);
+  box-shadow:0 26px 42px -26px rgba(23,21,15,.4);
+}
+.album-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.album-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:1.2rem;
+}
+.album-list__item{
+  margin:0;
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  background:var(--cream-50);
+  border:1px solid var(--cream-200);
+  box-shadow:0 18px 34px -24px rgba(23,21,15,.3);
+  transition:transform .5s var(--ease-silk), box-shadow .5s var(--ease-silk), border-color .5s var(--ease-silk);
+}
+.album-list__item:hover{
+  transform:translateY(-4px);
+  border-color:var(--gold-500);
+  box-shadow:0 26px 42px -26px rgba(23,21,15,.38);
+}
+.album-list__item img{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+}
+.album-list__item figcaption{ padding:1rem 1.2rem 1.3rem; }
+.album-list__item h4{ font-size:1rem; margin-bottom:.3rem; }
+.album-list__item span{
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--gold-700);
+  font-weight:700;
+}
+
 /* -------------------- Members page -------------------- */
 .member-grid{
   display:grid;
@@ -1071,16 +1137,6 @@ section{ position:relative; }
   border:2px solid var(--gold-500);
 }
 .member-card__photo img{ width:100%; height:100%; object-fit:cover; }
-.member-card__placeholder{
-  width:108px; height:108px;
-  border-radius:50%;
-  margin:0 auto 1.2rem;
-  display:flex; align-items:center; justify-content:center;
-  border:1.5px dashed var(--gold-500);
-  background:var(--cream-100);
-  color:var(--gold-700);
-}
-.member-card__placeholder svg{ width:32px; height:32px; }
 .member-card h3{ font-size:1.05rem; margin-bottom:.35rem; }
 .member-card__role{
   display:block;
