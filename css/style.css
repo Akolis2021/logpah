@@ -1110,6 +1110,60 @@ section{ position:relative; }
   font-weight:700;
 }
 
+img.img-is-fallback{ opacity:.92; }
+
+/* -------------------- Business Directory -------------------- */
+.business-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:1.6rem;
+}
+.business-card{
+  background:var(--cream-50);
+  border:1px solid var(--cream-200);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  transition:transform .5s var(--ease-silk), box-shadow .5s var(--ease-silk), border-color .5s var(--ease-silk);
+}
+.business-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 26px 40px -26px rgba(23,21,15,.28);
+  border-color:var(--gold-500);
+}
+.business-card__media{
+  aspect-ratio:3/4;
+  background:var(--cream-100);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:.7rem;
+}
+.business-card__media img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+.business-card__body{ padding:1.5rem 1.6rem 1.8rem; }
+.business-card__category{
+  font-size:.66rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--gold-700);
+}
+.business-card h3{ font-size:1.15rem; margin:.4rem 0 .6rem; }
+.business-card p{ color:var(--ink-500); font-size:.9rem; }
+.business-card__contact{
+  margin-top:1.1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.4rem;
+  font-size:.85rem;
+}
+.business-card__contact a{ color:var(--navy-900); font-weight:600; }
+.business-card__contact a:hover{ color:var(--gold-700); }
+
 /* -------------------- Members page -------------------- */
 .member-grid{
   display:grid;

@@ -34,6 +34,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     footerYear();
     duplicateMarquee();
+    initImageFallbacks();
     initImageSkeletons();
     initMasonryGrid();
     initCurtain();
@@ -64,6 +65,29 @@
   /* =====================================================================
      EXISTING CORE FUNCTIONS (preserved & enhanced)
      ===================================================================== */
+
+  /* ---------------- Image fallbacks (graceful "file not uploaded yet") ----
+     Any <img data-fallback="images/placeholder-photo.svg"> that 404s swaps
+     to the fallback automatically. This lets us wire up real numbered
+     folder paths (images/8th/1.jpeg ... 27.jpeg) before the client has
+     actually uploaded those files — once she drops correctly-named files
+     into that folder, the real photos appear with zero code changes. */
+  function initImageFallbacks() {
+    document.querySelectorAll("img[data-fallback]").forEach((img) => {
+      img.addEventListener(
+        "error",
+        function handleError() {
+          img.removeEventListener("error", handleError);
+          const fallback = img.dataset.fallback;
+          if (fallback && !img.src.endsWith(fallback.replace(/^images\//, ""))) {
+            img.classList.add("img-is-fallback");
+            img.src = fallback;
+          }
+        },
+        { once: true }
+      );
+    });
+  }
 
   /* ---------------- Image loading skeletons ----------------
      Every content image gets a branded shimmer placeholder (matching

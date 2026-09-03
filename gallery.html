@@ -27,6 +27,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="our-story.html">Our Story</a></li>
         <li><a href="members.html">Members</a></li>
+        <li><a href="business-directory.html">Businesses</a></li>
         <li><a href="gallery.html" aria-current="page">Gallery</a></li>
         <li><a href="get-involved.html">Get Involved</a></li>
         <li class="main-nav__cta"><a href="get-involved.html" class="btn btn--gold" data-magnetic>Join the Movement</a></li>
@@ -52,64 +53,471 @@
   <div class="wrap">
     <div class="filter-bar" data-reveal>
       <button class="filter-chip is-active" data-filter="all">All</button>
-      <button class="filter-chip" data-filter="outreach">Outreach</button>
-      <button class="filter-chip" data-filter="events">Events &amp; Fellowship</button>
-      <button class="filter-chip" data-filter="team">Team &amp; Leadership</button>
+      <button class="filter-chip" data-filter="1st">1st Anniversary</button>
+      <button class="filter-chip" data-filter="5th">5th Anniversary</button>
+      <button class="filter-chip" data-filter="8th">8th Anniversary</button>
+      <button class="filter-chip" data-filter="empowerment">Empowerment</button>
+      <button class="filter-chip" data-filter="elderly">Elderly Care</button>
+      <button class="filter-chip" data-filter="team-events">Team &amp; Events</button>
     </div>
 
+    <!-- EDIT: images/8th/ and images/elderly/ are wired up to numbered
+         paths (1.jpeg, 2.jpeg...) that don't have real files yet, each
+         one is already showing images/placeholder-photo.svg as a graceful
+         fallback (see data-fallback + initImageFallbacks in main.js).
+         Just drop correctly-numbered files into those two folders and the
+         real photos take over automatically, no HTML edits needed.
+         images/empowerment/ currently has 12 of the ~22 photos mentioned;
+         add 13.jpeg, 14.jpeg... and duplicate a tile below to extend it. -->
     <div class="masonry">
-      <figure class="masonry__item" data-reveal data-category="outreach" data-lightbox data-caption="School outreach sanitary care pack distribution">
-        <img src="images/outreach-girls.jpg" alt="LOGPAH volunteers distributing sanitary care packs to schoolgirls" loading="lazy" decoding="async">
-        <span class="masonry__tag">Outreach</span>
+      <figure class="masonry__item" data-reveal data-category="1st" data-lightbox data-caption="1st Anniversary Celebration, photo 1">
+        <img src="images/1st/1.jpeg" alt="1st Anniversary Celebration, photo 1 of 5" loading="lazy" decoding="async">
+        <span class="masonry__tag">1st Anniversary</span>
+        <figcaption>1st Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="1st" data-lightbox data-caption="1st Anniversary Celebration, photo 2">
+        <img src="images/1st/2.jpeg" alt="1st Anniversary Celebration, photo 2 of 5" loading="lazy" decoding="async">
+        <span class="masonry__tag">1st Anniversary</span>
+        <figcaption>1st Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="1st" data-lightbox data-caption="1st Anniversary Celebration, photo 3">
+        <img src="images/1st/3.jpeg" alt="1st Anniversary Celebration, photo 3 of 5" loading="lazy" decoding="async">
+        <span class="masonry__tag">1st Anniversary</span>
+        <figcaption>1st Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="1st" data-lightbox data-caption="1st Anniversary Celebration, photo 4">
+        <img src="images/1st/4.jpeg" alt="1st Anniversary Celebration, photo 4 of 5" loading="lazy" decoding="async">
+        <span class="masonry__tag">1st Anniversary</span>
+        <figcaption>1st Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="1st" data-lightbox data-caption="1st Anniversary Celebration, photo 5">
+        <img src="images/1st/5.jpeg" alt="1st Anniversary Celebration, photo 5 of 5" loading="lazy" decoding="async">
+        <span class="masonry__tag">1st Anniversary</span>
+        <figcaption>1st Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 1">
+        <img src="images/5th/1.jpeg" alt="5th Anniversary Celebration, photo 1 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 2">
+        <img src="images/5th/2.jpeg" alt="5th Anniversary Celebration, photo 2 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 3">
+        <img src="images/5th/3.jpeg" alt="5th Anniversary Celebration, photo 3 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 4">
+        <img src="images/5th/4.jpeg" alt="5th Anniversary Celebration, photo 4 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 5">
+        <img src="images/5th/5.jpeg" alt="5th Anniversary Celebration, photo 5 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 6">
+        <img src="images/5th/6.jpeg" alt="5th Anniversary Celebration, photo 6 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 7">
+        <img src="images/5th/7.jpeg" alt="5th Anniversary Celebration, photo 7 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 8">
+        <img src="images/5th/8.jpeg" alt="5th Anniversary Celebration, photo 8 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 9">
+        <img src="images/5th/9.jpeg" alt="5th Anniversary Celebration, photo 9 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 10">
+        <img src="images/5th/10.jpeg" alt="5th Anniversary Celebration, photo 10 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 11">
+        <img src="images/5th/11.jpeg" alt="5th Anniversary Celebration, photo 11 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 12">
+        <img src="images/5th/12.jpeg" alt="5th Anniversary Celebration, photo 12 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 13">
+        <img src="images/5th/13.jpeg" alt="5th Anniversary Celebration, photo 13 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="5th" data-lightbox data-caption="5th Anniversary Celebration, photo 14">
+        <img src="images/5th/14.jpeg" alt="5th Anniversary Celebration, photo 14 of 14" loading="lazy" decoding="async">
+        <span class="masonry__tag">5th Anniversary</span>
+        <figcaption>5th Anniversary Celebration</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 1">
+        <img src="images/8th/1.jpeg" alt="8th Anniversary Celebration, Bariga, photo 1 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 2">
+        <img src="images/8th/2.jpeg" alt="8th Anniversary Celebration, Bariga, photo 2 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 3">
+        <img src="images/8th/3.jpeg" alt="8th Anniversary Celebration, Bariga, photo 3 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 4">
+        <img src="images/8th/4.jpeg" alt="8th Anniversary Celebration, Bariga, photo 4 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 5">
+        <img src="images/8th/5.jpeg" alt="8th Anniversary Celebration, Bariga, photo 5 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 6">
+        <img src="images/8th/6.jpeg" alt="8th Anniversary Celebration, Bariga, photo 6 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 7">
+        <img src="images/8th/7.jpeg" alt="8th Anniversary Celebration, Bariga, photo 7 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 8">
+        <img src="images/8th/8.jpeg" alt="8th Anniversary Celebration, Bariga, photo 8 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 9">
+        <img src="images/8th/9.jpeg" alt="8th Anniversary Celebration, Bariga, photo 9 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 10">
+        <img src="images/8th/10.jpeg" alt="8th Anniversary Celebration, Bariga, photo 10 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 11">
+        <img src="images/8th/11.jpeg" alt="8th Anniversary Celebration, Bariga, photo 11 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 12">
+        <img src="images/8th/12.jpeg" alt="8th Anniversary Celebration, Bariga, photo 12 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 13">
+        <img src="images/8th/13.jpeg" alt="8th Anniversary Celebration, Bariga, photo 13 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 14">
+        <img src="images/8th/14.jpeg" alt="8th Anniversary Celebration, Bariga, photo 14 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 15">
+        <img src="images/8th/15.jpeg" alt="8th Anniversary Celebration, Bariga, photo 15 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 16">
+        <img src="images/8th/16.jpeg" alt="8th Anniversary Celebration, Bariga, photo 16 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 17">
+        <img src="images/8th/17.jpeg" alt="8th Anniversary Celebration, Bariga, photo 17 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 18">
+        <img src="images/8th/18.jpeg" alt="8th Anniversary Celebration, Bariga, photo 18 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 19">
+        <img src="images/8th/19.jpeg" alt="8th Anniversary Celebration, Bariga, photo 19 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 20">
+        <img src="images/8th/20.jpeg" alt="8th Anniversary Celebration, Bariga, photo 20 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 21">
+        <img src="images/8th/21.jpeg" alt="8th Anniversary Celebration, Bariga, photo 21 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 22">
+        <img src="images/8th/22.jpeg" alt="8th Anniversary Celebration, Bariga, photo 22 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 23">
+        <img src="images/8th/23.jpeg" alt="8th Anniversary Celebration, Bariga, photo 23 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 24">
+        <img src="images/8th/24.jpeg" alt="8th Anniversary Celebration, Bariga, photo 24 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 25">
+        <img src="images/8th/25.jpeg" alt="8th Anniversary Celebration, Bariga, photo 25 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 26">
+        <img src="images/8th/26.jpeg" alt="8th Anniversary Celebration, Bariga, photo 26 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="8th" data-lightbox data-caption="8th Anniversary Celebration, Bariga, photo 27">
+        <img src="images/8th/27.jpeg" alt="8th Anniversary Celebration, Bariga, photo 27 of 27" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">8th Anniversary · Bariga</span>
+        <figcaption>8th Anniversary Celebration, Bariga</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 1">
+        <img src="images/empowerment/1.jpeg" alt="Empowerment Programme, photo 1 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 2">
+        <img src="images/empowerment/2.jpeg" alt="Empowerment Programme, photo 2 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 3">
+        <img src="images/empowerment/3.jpeg" alt="Empowerment Programme, photo 3 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 4">
+        <img src="images/empowerment/4.jpeg" alt="Empowerment Programme, photo 4 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 5">
+        <img src="images/empowerment/5.jpeg" alt="Empowerment Programme, photo 5 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 6">
+        <img src="images/empowerment/6.jpeg" alt="Empowerment Programme, photo 6 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 7">
+        <img src="images/empowerment/7.jpeg" alt="Empowerment Programme, photo 7 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 8">
+        <img src="images/empowerment/8.jpeg" alt="Empowerment Programme, photo 8 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 9">
+        <img src="images/empowerment/9.jpeg" alt="Empowerment Programme, photo 9 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 10">
+        <img src="images/empowerment/10.jpeg" alt="Empowerment Programme, photo 10 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 11">
+        <img src="images/empowerment/11.jpeg" alt="Empowerment Programme, photo 11 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="empowerment" data-lightbox data-caption="Empowerment Programme, photo 12">
+        <img src="images/empowerment/12.jpeg" alt="Empowerment Programme, photo 12 of 12" loading="lazy" decoding="async">
+        <span class="masonry__tag">Empowerment</span>
+        <figcaption>Empowerment Programme</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 1">
+        <img src="images/elderly/1.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 1 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 2">
+        <img src="images/elderly/2.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 2 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 3">
+        <img src="images/elderly/3.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 3 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 4">
+        <img src="images/elderly/4.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 4 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 5">
+        <img src="images/elderly/5.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 5 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 6">
+        <img src="images/elderly/6.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 6 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="elderly" data-lightbox data-caption="Visit to MASC Care Home, Abule Egba, photo 7">
+        <img src="images/elderly/7.jpeg" alt="Visit to MASC Care Home, Abule Egba, photo 7 of 7" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
+        <span class="masonry__tag">Elderly Care</span>
+        <figcaption>Visit to MASC Care Home, Abule Egba</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="School Outreach">
+        <img src="images/outreach-girls.jpg" alt="School outreach and sanitary care distribution" loading="lazy" decoding="async">
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>School Outreach</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="team" data-lightbox data-caption="LOGPAH leadership portrait">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="Leadership">
         <img src="images/founder-portrait.jpg" alt="LOGPAH leadership portrait" loading="lazy" decoding="async">
-        <span class="masonry__tag">Team &amp; Leadership</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>Leadership</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="events" data-lightbox data-caption="LOGPAH members in celebration aso-ebi">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="Fellowship Day">
         <img src="images/event-aso-ebi.jpg" alt="LOGPAH members at a foundation event in matching aso-ebi" loading="lazy" decoding="async">
-        <span class="masonry__tag">Events &amp; Fellowship</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>Fellowship Day</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="outreach" data-lightbox data-caption="LOGPAH members in the community">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="In the Field">
         <img src="images/community-selfie.jpg" alt="LOGPAH members on an outreach visit" loading="lazy" decoding="async">
-        <span class="masonry__tag">Outreach</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>In the Field</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="events" data-lightbox data-caption="A decade toast the LOGPAH family">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="Celebrations">
         <img src="images/celebration-cake.jpg" alt="LOGPAH members celebrating together" loading="lazy" decoding="async">
-        <span class="masonry__tag">Events &amp; Fellowship</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>Celebrations</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="team" data-lightbox data-caption="A LOGPAH member representing the foundation">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="Our Members">
         <img src="images/member-portrait.jpg" alt="LOGPAH member in foundation polo" loading="lazy" decoding="async">
-        <span class="masonry__tag">Team &amp; Leadership</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>Our Members</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="team" data-lightbox data-caption="The LOGPAH Executive Council Compliment of the Season">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="The Executive Council">
         <img src="images/exco-collage.jpg" alt="LOGPAH Executive Council collage" loading="lazy" decoding="async">
-        <span class="masonry__tag">Team &amp; Leadership</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>The Executive Council</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="events" data-lightbox data-caption="Celebrating International Women's Day together">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="International Women's Day">
         <img src="images/womens-day-group.jpg" alt="LOGPAH members celebrating International Women's Day" loading="lazy" decoding="async">
-        <span class="masonry__tag">Events &amp; Fellowship</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>International Women's Day</figcaption>
       </figure>
 
-      <figure class="masonry__item" data-reveal data-category="events" data-lightbox data-caption="A Decade of Elegance and Excellence 10th Anniversary">
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="10th Anniversary">
         <img src="images/anniversary-10yr.jpg" alt="LOGPAH 10th Anniversary campaign artwork" loading="lazy" decoding="async">
-        <span class="masonry__tag">Events &amp; Fellowship</span>
+        <span class="masonry__tag">Team &amp; Events</span>
         <figcaption>10th Anniversary</figcaption>
+      </figure>
+
+      <figure class="masonry__item" data-reveal data-category="team-events" data-lightbox data-caption="Visit to Red Cross Motherless Home">
+        <img src="images/collage.jpeg" alt="Visit to Red Cross Motherless Home, Yaba" loading="lazy" decoding="async">
+        <span class="masonry__tag">Team &amp; Events</span>
+        <figcaption>Visit to Red Cross Motherless Home</figcaption>
       </figure>
     </div>
   </div>
@@ -126,90 +534,58 @@
       <p style="color:rgba(250,246,236,.78);">Impressed by our commitment, the Honourable Commissioner invited representatives of LOGPAH to his office to formally present our organisation, our mission, and our vision for the future.</p>
     </div>
 
-    <!-- EDIT: swap each src below for the real photo once ready, e.g.
-         src="images/gbagada-outreach-1.jpg". Suggested caption for this
-         set of 3: "Our team during a community health outreach at Gbagada
-         General Hospital, Lagos, where we had the privilege of meeting
-         the Honourable Commissioner for Health, Lagos State." -->
+    <!-- EDIT: wired to images/gbagada/1.jpeg-3.jpeg, gracefully falls back
+         to the placeholder until those files exist. Suggested caption:
+         "Our team during a community health outreach at Gbagada General
+         Hospital, Lagos, where we had the privilege of meeting the
+         Honourable Commissioner for Health, Lagos State." -->
     <div class="album-grid" style="margin-top:2.4rem;" data-reveal>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Outreach at Gbagada Hospital, photo pending" loading="lazy" decoding="async">
+        <img src="images/gbagada/1.jpeg" alt="Outreach at Gbagada Hospital, photo 1" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Outreach at Gbagada Hospital, photo pending" loading="lazy" decoding="async">
+        <img src="images/gbagada/2.jpeg" alt="Outreach at Gbagada Hospital, photo 2" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Outreach at Gbagada Hospital, photo pending" loading="lazy" decoding="async">
+        <img src="images/gbagada/3.jpeg" alt="Outreach at Gbagada Hospital, photo 3" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
     </div>
 
-    <!-- EDIT: swap each src below for the real photo once ready, e.g.
-         src="images/gbagada-commissioner-1.jpg". Suggested caption for
-         this set of 3: "A memorable moment following our engagement with
-         the Honourable Commissioner for Health, Lagos State, who invited
-         our team to formally present our mission and community
-         initiatives." -->
+    <!-- EDIT: wired to images/invitation_meeting/1.jpeg-3.jpeg. Suggested
+         caption: "A memorable moment following our engagement with the
+         Honourable Commissioner for Health, Lagos State, who invited our
+         team to formally present our mission and community initiatives." -->
     <div class="album-grid" style="margin-top:1.2rem;" data-reveal>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Commissioner's office visit, photo pending" loading="lazy" decoding="async">
+        <img src="images/invitation_meeting/1.jpeg" alt="Commissioner's office visit, photo 1" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Commissioner's office visit, photo pending" loading="lazy" decoding="async">
+        <img src="images/invitation_meeting/2.jpeg" alt="Commissioner's office visit, photo 2" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
       <figure class="album-tile">
-        <img src="images/placeholder-photo.svg" alt="Commissioner's office visit, photo pending" loading="lazy" decoding="async">
+        <img src="images/invitation_meeting/3.jpeg" alt="Commissioner's office visit, photo 3" loading="lazy" decoding="async" data-fallback="images/placeholder-photo.svg">
       </figure>
     </div>
   </div>
 </section>
 
-<!-- ============== ALBUMS COMING SOON ============== -->
+<!-- ============== HYGIENE SESSION + VIDEO NOTE ============== -->
 <section class="section section--cream">
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">More To Come</p>
-      <h2>Albums coming soon</h2>
-      <p>More than 60 photos and several videos are on their way. Here's what's queued up next.</p>
-    </div>
-
-    <!-- EDIT: each figure below is one album cover. Swap the src for that
-         album's best photo once ready, e.g.
-         src="images/bariga-8th-anniversary-1.jpg", and once there are
-         several photos for an album, duplicate the .masonry or .album-grid
-         pattern above to build out its full gallery. -->
-    <div class="album-list" data-reveal>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="8th Year Anniversary, Bariga, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Anniversary</span><h4>8th Year · Bariga</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="5th Year Celebration, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Anniversary</span><h4>5th Year Celebration</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="1st Year Celebration, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Anniversary</span><h4>1st Year Celebration</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="Elderly Home Visits, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Outreach</span><h4>Elderly Home Visits</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="Empowerment Programmes, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Outreach</span><h4>Empowerment Programmes</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="Feeding the Destitute, Ketu, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Outreach</span><h4>Feeding the Destitute, Ketu</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="Hygiene Session, Ayangburen Primary, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Education</span><h4>Hygiene Session, Ayangburen Primary</h4></figcaption>
-      </figure>
-      <figure class="album-list__item">
-        <img src="images/placeholder-photo.svg" alt="Visit to Red Cross Motherless Home, photo pending" loading="lazy" decoding="async">
-        <figcaption><span>Community</span><h4>Visit to Red Cross Motherless Home</h4></figcaption>
-      </figure>
+  <div class="wrap" style="max-width:780px;">
+    <div data-reveal>
+      <p class="eyebrow">Community Outreach &amp; Impact</p>
+      <h2 style="font-size:clamp(1.8rem,3.2vw,2.4rem); margin-bottom:1rem;">Promoting Good Hygiene Among Children</h2>
+      <p style="color:var(--ink-500); margin-bottom:1rem;">As part of our commitment to building healthier communities, our team visited Ayangburen Primary School, Ikorodu, where we engaged the pupils in an educational session on the importance of personal hygiene and healthy daily habits.</p>
+      <p style="color:var(--ink-500); margin-bottom:1rem;">Through this interactive session led by the General Secretary of the foundation, Mrs Oluwabunmi Adenuga, we taught the children practical ways to care for themselves, maintain good hygiene and protect their health.</p>
+      <p style="color:var(--ink-500);">We believe that educating children about healthy habits from an early age helps them grow into healthier, more confident individuals and contributes to a healthier community.</p>
+      <!-- EDIT: this session, the Ketu-under-the-bridge feeding outreach, the
+           8th Anniversary, and the 5th Anniversary all have real videos
+           coming per the client's notes. This site doesn't have video
+           playback built yet, once video files/links are available,
+           either embed with a <video> tag (for small self-hosted files) or
+           an iframe embed (for YouTube/Vimeo, recommended for large files
+           on a static host). Flagged in PROJECT_LOG.md §6. -->
+      <p style="margin-top:1.2rem; font-style:italic; color:var(--gold-700);">🎥 Video of this session coming soon.</p>
     </div>
   </div>
 </section>
@@ -242,6 +618,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="our-story.html">Our Story</a></li>
           <li><a href="members.html">Members</a></li>
+          <li><a href="business-directory.html">Businesses</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="get-involved.html">Get Involved</a></li>
         </ul>
