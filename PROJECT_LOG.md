@@ -108,20 +108,22 @@ No build tools. Drop into any static host or open `index.html` directly.
   with an `<!-- EDIT -->` comment, not confirmed to actually be the Vice
   President).
 
-### business-directory.html, new page, partially real
-- Full page built: intro copy (verbatim), 4 business listings in a card grid.
-- Healthy Loaf is fully real: address (12 Oke-Oriya, by Cele Bus Stop,
-  Ikorodu, Lagos), phone (+234 803 574 5024), 2 real photos in `images/healthyloaf/`.
-- Engy Blossom Empire, A-Series, and Flaros College: only a flier image was
-  given for each; category, description, and contact info are `[bracket]`
-  placeholders. Not fabricated, genuinely unknown until the client sends more.
+### business-directory.html, real listings completed
+- Full page built: intro copy (verbatim), 4 real business listings in a card grid.
+- All 4 listings now feature real categories, rich descriptions, and verified contact details extracted directly from their fliers:
+  - Engy Blossom Empire: Fashion & Lifestyle (Ankara, Adire, men's & women's wear, accessories; phone, IG, nationwide delivery).
+  - Healthy Loaf: Food & Bakery (family loaves, Ikorodu bakery address, phone).
+  - A-Series Creative World Ventures: Cakes, Pastries & Catering (by Mrs. Oluwabunmi Adenuga; phone, IG, FB).
+  - Flaros College: Education & Academics (Government-approved WAEC/NECO/BECE school; Ogun State address, phones).
 - Added to nav (as "Businesses") and footer on every page.
 
 ### gallery.html, major rebuild, real albums wired in
 - Filter chips changed from generic Outreach/Events/Team to the real albums:
   All, 1st Anniversary, 5th Anniversary, 8th Anniversary, Empowerment,
   Elderly Care, Team & Events.
-- One unified masonry grid, 75 tiles total:
+- Redesigned grid: unified 3-column card grid matching the scale, proximity,
+  and clean aesthetics of the Members and Our Story pages (.exco-strip), with
+  a 4:3 aspect ratio, border-radius, clean card footers, and smooth hover zoom:
   - 1st Anniversary: 5 real photos (`images/1st/1-5.jpeg`)
   - 5th Anniversary: 14 real photos (`images/5th/1-14.jpeg`)
   - 8th Anniversary, Bariga: 27 tiles wired to `images/8th/1-27.jpeg`, files
@@ -172,7 +174,7 @@ No build tools. Drop into any static host or open `index.html` directly.
 |---|---|
 | `initImageFallbacks` | New. Any `<img data-fallback="images/placeholder-photo.svg">` that 404s swaps to the fallback automatically. This is what makes the numbered-but-not-yet-uploaded folders (8th, elderly, gbagada, invitation_meeting) work with zero future code edits. |
 | `initImageSkeletons` | Shimmer/blur-up placeholder on every `<img>` until loaded |
-| `initMasonryGrid` | Computes true masonry row-spans for `.masonry` (gallery.html) from real image height |
+| `initMasonryGrid` | Manages gallery grid lifecycle and ScrollTrigger synchronization |
 | `initCurtain` | Preloader, waits on fonts + hero image ready (900ms-3.2s window), not a fixed timer |
 | `initHeaderScroll` / `initNavToggle` | Header shrink + mobile dropdown (GSAP slide+bounce, hamburger to X) |
 | `initHeroEntrance` | Hero timeline, branches for mobile (visual reveals first, matches CSS `order:-1`) |

@@ -46,6 +46,8 @@
     initCounters();
     initGallery();
     initLightbox();
+    initVideoModal();
+    initEventsFilter();
 
     // New creative animations
     initCustomCursor();
@@ -515,55 +517,22 @@
     });
   }
 
-  /* ---------------- Masonry grid (gallery.html) ----------------
-     .masonry is a CSS Grid with a tiny grid-auto-rows (8px). Each tile's
-     grid-row-end: span is set here to exactly match its image's natural
-     rendered height, so wide landscape shots stay short and portraits
-     stay tall — nothing gets cropped to a uniform box. Recomputes on
-     image load (since most tiles use loading="lazy") and on resize. */
+  /* ---------------- Gallery grid (gallery.html) ----------------
+     The gallery grid uses native CSS Grid with uniform 4:3 cards matching
+     the scale and proximity of the Members and Our Story pages.
+     Refreshes ScrollTrigger once images settle. */
   function initMasonryGrid() {
     const grid = document.querySelector(".masonry");
     if (!grid) return;
 
-    const ROW = 8; // must match grid-auto-rows in CSS
-    let gap = 19.2; // fallback ~1.2rem, corrected below once measurable
-
-    const readGap = () => {
-      const g = parseFloat(getComputedStyle(grid).rowGap);
-      if (!isNaN(g)) gap = g;
-    };
-
-    const setSpan = (item) => {
-      const img = item.querySelector("img");
-      if (!img) return;
-      const h = img.getBoundingClientRect().height;
-      if (!h) return;
-      const span = Math.ceil((h + gap) / (ROW + gap));
-      item.style.setProperty("--span", span);
-    };
-
-    const layoutAll = () => {
-      readGap();
-      grid.querySelectorAll(".masonry__item").forEach(setSpan);
-    };
-
-    grid.querySelectorAll("img").forEach((img) => {
-      if (img.complete && img.naturalWidth > 0) return;
-      img.addEventListener(
-        "load",
-        () => setSpan(img.closest(".masonry__item")),
-        { once: true }
-      );
+    // Clear any legacy inline style spans
+    grid.querySelectorAll(".masonry__item").forEach((item) => {
+      item.style.removeProperty("--span");
     });
 
-    layoutAll();
-    window.addEventListener("load", layoutAll);
-
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(layoutAll, 150);
-    });
+    if (window.ScrollTrigger) {
+      window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+    }
   }
 
   /* ---------------- Gallery filter (gallery.html) ---------------- */
@@ -578,18 +547,26 @@
         chip.classList.add("is-active");
         const filter = chip.dataset.filter;
 
+        let completedCount = 0;
+        const totalItems = items.length;
+
         items.forEach((item) => {
           const match = filter === "all" || item.dataset.category === filter;
           if (window.gsap) {
             gsap.to(item, {
               opacity: match ? 1 : 0,
-              scale: match ? 1 : 0.92,
-              duration: 0.4,
+              scale: match ? 1 : 0.94,
+              duration: 0.35,
+              ease: "power2.out",
               onStart: () => {
                 if (match) item.style.display = "";
               },
               onComplete: () => {
                 if (!match) item.style.display = "none";
+                completedCount++;
+                if (completedCount === totalItems && window.ScrollTrigger) {
+                  ScrollTrigger.refresh();
+                }
               },
             });
           } else {
@@ -634,6 +611,102 @@
     });
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") close();
+    });
+  }
+
+  /* ---------------- Video Lightbox Modal (gallery.html) ---------------- */
+  function initVideoModal() {
+    const triggers = document.querySelectorAll("[data-video]");
+    const modal = document.querySelector(".video-modal");
+    if (!triggers.length || !modal) return;
+
+    const player = modal.querySelector(".video-modal__player");
+    const emptyNotice = modal.querySelector(".video-modal__empty");
+    const emptyTitle = modal.querySelector(".video-modal__empty h3");
+    const emptyDesc = modal.querySelector(".video-modal__empty p");
+    const closeBtn = modal.querySelector(".video-modal__close");
+
+    const openVideo = (videoSrc, videoTitle, videoDesc) => {
+      if (videoSrc && videoSrc.trim().length > 0) {
+        player.style.display = "block";
+        if (emptyNotice) emptyNotice.style.display = "none";
+        player.src = videoSrc;
+        player.play().catch(() => {});
+      } else {
+        player.style.display = "none";
+        player.pause();
+        player.removeAttribute("src");
+        if (emptyNotice) {
+          emptyNotice.style.display = "flex";
+          if (emptyTitle) emptyTitle.textContent = videoTitle || "Video Footage Coming Soon";
+          if (emptyDesc) emptyDesc.textContent = videoDesc || "This video recording is currently being prepared and will be available shortly.";
+        }
+      }
+      modal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeVideo = () => {
+      modal.classList.remove("is-open");
+      if (player) {
+        player.pause();
+        player.removeAttribute("src");
+        player.load();
+      }
+      document.body.style.overflow = "";
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const src = trigger.dataset.videoSrc || "";
+        const title = trigger.dataset.videoTitle || "";
+        const desc = trigger.dataset.videoDesc || "";
+        openVideo(src, title, desc);
+      });
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeVideo);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeVideo();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) closeVideo();
+    });
+  }
+
+  /* ---------------- Events Calendar Filter (index.html) ---------------- */
+  function initEventsFilter() {
+    const chips = document.querySelectorAll(".events-filter .filter-chip");
+    const cards = document.querySelectorAll(".event-card");
+    if (!chips.length || !cards.length) return;
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chips.forEach((c) => c.classList.remove("is-active"));
+        chip.classList.add("is-active");
+        const filter = chip.dataset.filter;
+
+        cards.forEach((card) => {
+          const match = filter === "all" || card.dataset.category === filter;
+          if (window.gsap) {
+            gsap.to(card, {
+              opacity: match ? 1 : 0,
+              scale: match ? 1 : 0.95,
+              duration: 0.35,
+              ease: "power2.out",
+              onStart: () => {
+                if (match) card.style.display = "";
+              },
+              onComplete: () => {
+                if (!match) card.style.display = "none";
+                if (window.ScrollTrigger) ScrollTrigger.refresh();
+              },
+            });
+          } else {
+            card.style.display = match ? "" : "none";
+          }
+        });
+      });
     });
   }
 
