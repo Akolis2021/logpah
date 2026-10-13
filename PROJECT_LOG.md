@@ -97,24 +97,24 @@ No build tools. Drop into any static host or open `index.html` directly.
 - Still pending: EXCO strip (3 photos) still uses generic stock photos, not
   tied to specific real captions yet.
 
-### members.html, real roles, names still pending
-- Founder spotlight now uses her real name/photo/bio (synced with our-story.html).
-- Executive Council grid: all 6 cards now carry the real committee role
-  titles from the client doc, in order: Vice President, General Secretary,
-  Treasurer, Financial Secretary, Public Relations Officer, Welfare Officer.
-- Still pending: names are still `[Member Name]` brackets, none were given
-  except the founder. Photos are still placeholder/generic except the first
-  card, which uses `member-portrait.jpg` as an unconfirmed stand-in (flagged
-  with an `<!-- EDIT -->` comment, not confirmed to actually be the Vice
-  President).
+### members.html, real roles, officers and member profiles added
+- Founder spotlight uses her real name/photo/bio (synced with our-story.html).
+- Executive Council:
+  - Mrs. Adenuga Idowu Oluwabunmi: General Secretary (real photo `images/Adenuga_Oluwabunmi.jpeg`, full leadership bio, educational credentials, and entrepreneurship profile).
+  - Adadey Ngozi: Welfare Officer (real photo `images/Adadey_Ngozi.jpeg`, full welfare leadership and educator/businesswoman bio).
+  - Vice President, Treasurer, Financial Secretary, Public Relations Officer remain pending official portraits/bios.
+- Featured Members & Global Sisterhood:
+  - Ibironke Oluwakemi Iyanda: Member (real photo `images/IBIRONKE_OLUWAKEMI_IYANDA.jpeg`, Nurse, United Kingdom).
+  - Mercy Osazemen Ojo Komolafe: Member (real photo `images/Mercy_Osazemen_Ojo_Komolafe.jpeg`, Lagos, Nigeria).
 
-### business-directory.html, real listings completed
-- Full page built: intro copy (verbatim), 4 real business listings in a card grid.
-- All 4 listings now feature real categories, rich descriptions, and verified contact details extracted directly from their fliers:
+### business-directory.html, 5 real listings completed
+- Full page built: intro copy (verbatim), 5 real business listings in an enhanced card grid.
+- All 5 listings now feature real categories, rich descriptions, and verified contact details:
   - Engy Blossom Empire: Fashion & Lifestyle (Ankara, Adire, men's & women's wear, accessories; phone, IG, nationwide delivery).
   - Healthy Loaf: Food & Bakery (family loaves, Ikorodu bakery address, phone).
-  - A-Series Creative World Ventures: Cakes, Pastries & Catering (by Mrs. Oluwabunmi Adenuga; phone, IG, FB).
-  - Flaros College: Education & Academics (Government-approved WAEC/NECO/BECE school; Ogun State address, phones).
+  - A-Series Creative World Ventures: Cakes, Pastries & Catering (by Mrs. Adenuga Idowu Oluwabunmi; phone, IG, FB).
+  - Flaros College: Education & Academics (Government-approved WAEC/NECO/BECE school; motto "Knowledge Guided with Zeal", official banner `images/flaros_college.jpeg`, full verified Ogun State address, and 3 phone lines from `images/flaros_college_address.jpeg`).
+  - Ambassador 360 Limited Hotel & Suite: Hospitality, Hotel & Suites (motto "A Place Like Home", hotel premises photo `images/ambassador2.jpeg` with inset logo badge `images/ambassador1.jpeg`).
 - Added to nav (as "Businesses") and footer on every page.
 
 ### gallery.html, major rebuild, real albums wired in
@@ -228,9 +228,8 @@ content built in.
 1. Done, Home page
 2. Done, About Us (built into our-story.html, not a separate page, revisit
    if the client wants it split out)
-3. Partial, Photo & Video Gallery, images mostly wired (real or
-   fallback-ready), video entirely unbuilt, see §3
-4. Not started, Events Calendar
+3. Done, Photo & Video Gallery: images normalized and wired (8th, elderly, gbagada, invitation, empowerment), video infrastructure built (video cards, play badges, filter chip, and video lightbox modal).
+4. Done, Events Calendar: built into index.html with interactive filter chips (All, Anniversaries, Outreaches, Empowerment).
 5. Not started, Our Community Impact (dedicated page), overlaps with
    Our Story's achievements section
 6. Not started, Members' Achievements (personal milestones: new job,
@@ -238,8 +237,8 @@ content built in.
 7. Done, Members' Business Directory, built as business-directory.html
 8. Not started, Birthday & Celebration Corner
 9. Not started, News & Updates / blog
-10. Not started, Testimonials
-11. Partial, Our Story / Timeline, built, merged with About Us
+10. Done, Testimonials: "Voices of Sisterhood" section built into index.html with quotes from Founder, General Secretary, and community partners.
+11. Done, Our Story / Timeline: built with embedded milestone photos (Red Cross Motherless Home and Ayangburen Primary School), merged with About Us.
 12. Partial, Join the Group, get-involved.html exists, Become a Sponsor now
     real, but the specific "who can join / requirements / how to apply"
     copy from section 12 of the brainstorm hasn't been delivered yet
