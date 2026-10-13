@@ -1663,27 +1663,41 @@ img.img-is-fallback{ opacity:.92; }
 }
 .event-card__date{
   flex-shrink:0;
-  width:58px;
-  padding:.5rem .2rem;
-  background:var(--navy-950);
-  color:var(--gold-300);
-  border-radius:var(--radius-sm);
+  width:62px;
+  background:#ffffff;
+  border:1.5px solid var(--cream-200);
+  border-radius:10px;
   text-align:center;
-  border:1px solid var(--gold-600);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 6px 14px -6px rgba(23,21,15,.1);
+  transition:border-color .35s var(--ease-silk), transform .35s var(--ease-silk);
+}
+.event-card:hover .event-card__date{
+  border-color:var(--gold-500);
+  transform:scale(1.04);
+}
+.event-card__date small{
+  order:-1;
+  display:block;
+  background:linear-gradient(135deg, var(--gold-600), var(--gold-700));
+  color:#ffffff;
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:800;
+  padding:.3rem 0;
+  line-height:1.2;
 }
 .event-card__date b{
   display:block;
-  font-size:1.25rem;
+  font-size:1.45rem;
   line-height:1;
   font-family:var(--font-display);
-}
-.event-card__date small{
-  display:block;
-  font-size:.65rem;
-  text-transform:uppercase;
-  letter-spacing:.08em;
+  color:var(--navy-950);
   font-weight:700;
-  margin-top:.2rem;
+  padding:.5rem .2rem .45rem;
 }
 .event-card__badge{
   font-size:.65rem;
