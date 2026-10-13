@@ -97,15 +97,14 @@ No build tools. Drop into any static host or open `index.html` directly.
 - Still pending: EXCO strip (3 photos) still uses generic stock photos, not
   tied to specific real captions yet.
 
-### members.html, real roles, officers and member profiles added
+### members.html, real roles, confirmed officers and member profiles
 - Founder spotlight uses her real name/photo/bio (synced with our-story.html).
-- Executive Council:
+- Executive Council (unfilled placeholder cards and duplicated founder portrait removed):
   - Mrs. Adenuga Idowu Oluwabunmi: General Secretary (real photo `images/Adenuga_Oluwabunmi.jpeg`, full leadership bio, educational credentials, and entrepreneurship profile).
   - Adadey Ngozi: Welfare Officer (real photo `images/Adadey_Ngozi.jpeg`, full welfare leadership and educator/businesswoman bio).
-  - Vice President, Treasurer, Financial Secretary, Public Relations Officer remain pending official portraits/bios.
+  - Mercy Osazemen Ojo Komolafe: Executive Committee / Admin (real photo `images/Mercy_Osazemen_Ojo_Komolafe.jpeg`, administrative & outreach coordination bio).
 - Featured Members & Global Sisterhood:
   - Ibironke Oluwakemi Iyanda: Member (real photo `images/IBIRONKE_OLUWAKEMI_IYANDA.jpeg`, Nurse, United Kingdom).
-  - Mercy Osazemen Ojo Komolafe: Member (real photo `images/Mercy_Osazemen_Ojo_Komolafe.jpeg`, Lagos, Nigeria).
 
 ### business-directory.html, 5 real listings completed
 - Full page built: intro copy (verbatim), 5 real business listings in an enhanced card grid.

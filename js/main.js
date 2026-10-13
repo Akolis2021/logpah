@@ -62,6 +62,7 @@
     initDecadePanelParallax();
     initTileGridAnimations();
     initMemberCardsReveal();
+    initExpandableText();
   });
 
   /* =====================================================================
@@ -1302,6 +1303,50 @@
       card.addEventListener("mouseleave", () => {
         gsap.to(card, { y: 0, duration: 0.5, ease: "power2.inOut", overwrite: "auto" });
       });
+    });
+  }
+
+  /* ================ 13. Expandable Text ("Show More / Show Less") ================ */
+  function initExpandableText() {
+    const expandables = document.querySelectorAll(".expandable-text");
+    if (!expandables.length) return;
+
+    expandables.forEach((el) => {
+      const content = el.querySelector(".expandable-text__content");
+      const btn = el.querySelector(".btn-show-more");
+      if (!content || !btn) return;
+
+      const checkOverflow = () => {
+        if (!el.classList.contains("is-expanded")) {
+          // If the text height exceeds the clamped height by more than 4px, reveal the button
+          if (content.scrollHeight > content.clientHeight + 4) {
+            btn.style.display = "inline-flex";
+          } else {
+            btn.style.display = "none";
+          }
+        }
+      };
+
+      btn.addEventListener("click", () => {
+        const isExpanded = el.classList.toggle("is-expanded");
+        btn.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+        const label = btn.querySelector("span");
+        const defaultMoreText = btn.getAttribute("data-more-text") || "Read more";
+        const defaultLessText = btn.getAttribute("data-less-text") || "Show less";
+
+        if (label) {
+          label.textContent = isExpanded ? defaultLessText : defaultMoreText;
+        }
+
+        // Smoothly adjust ScrollTrigger positions
+        if (window.ScrollTrigger) {
+          setTimeout(() => ScrollTrigger.refresh(), 100);
+        }
+      });
+
+      // Run check on mount and resize
+      setTimeout(checkOverflow, 120);
+      window.addEventListener("resize", checkOverflow);
     });
   }
 })();

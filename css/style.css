@@ -1311,8 +1311,8 @@ img.img-is-fallback{ opacity:.92; }
   background:#fff;
   border-radius:var(--radius-sm);
   padding:4px 6px;
-  box-shadow:0 6px 18px rgba(0,0,0,.35);
-  border:1.5px solid var(--gold-400);
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+  border:1px solid var(--cream-200);
   z-index:2;
   display:flex;
   align-items:center;
@@ -1338,7 +1338,77 @@ img.img-is-fallback{ opacity:.92; }
   color:var(--gold-700);
 }
 .business-card h3{ font-size:1.2rem; margin:.4rem 0 .6rem; color:var(--navy-950); }
-.business-card p{ color:var(--ink-500); font-size:.9rem; line-height:1.6; }
+.business-card p{ color:var(--ink-500); font-size:.9rem; line-height:1.6; margin:0; }
+
+/* -------------------- Expandable Text ("Show More" toggles) -------------------- */
+.expandable-text{
+  position:relative;
+  margin-bottom:.5rem;
+}
+.expandable-text__content{
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  position:relative;
+  transition:all .35s var(--ease-silk);
+}
+.expandable-text__content p{
+  margin:0;
+  color:var(--ink-500);
+  font-size:.9rem;
+  line-height:1.6;
+}
+.expandable-text__content p + p{
+  margin-top:.7rem;
+}
+.expandable-text:not(.is-expanded) .expandable-text__content::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:24px;
+  background:linear-gradient(to bottom, rgba(250,246,236,0), rgba(250,246,236,0.95));
+  pointer-events:none;
+}
+.expandable-text.is-expanded .expandable-text__content{
+  display:block;
+  -webkit-line-clamp:unset;
+  overflow:visible;
+}
+.expandable-text.is-expanded .expandable-text__content::after{
+  display:none;
+}
+.btn-show-more{
+  display:none; /* Shown by JS if content actually overflows */
+  align-items:center;
+  gap:.35rem;
+  background:transparent;
+  border:none;
+  padding:.35rem 0;
+  margin-top:.4rem;
+  color:var(--gold-700);
+  font-family:var(--font-body);
+  font-size:.82rem;
+  font-weight:700;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:color .3s;
+}
+.btn-show-more:hover{
+  color:var(--navy-900);
+}
+.btn-show-more svg{
+  width:14px;
+  height:14px;
+  stroke:currentColor;
+  transition:transform .3s ease;
+}
+.expandable-text.is-expanded .btn-show-more svg{
+  transform:rotate(180deg);
+}
+
 .business-card__contact{
   margin-top:auto;
   padding-top:1.2rem;
@@ -1467,7 +1537,7 @@ img.img-is-fallback{ opacity:.92; }
 }
 .member-spotlight-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
   gap:1.8rem;
 }
 .member-note{
@@ -1731,6 +1801,8 @@ img.img-is-fallback{ opacity:.92; }
   .masonry{ grid-template-columns:1fr; gap:1rem; }
   .testimonials-grid{ grid-template-columns:1fr; gap:1.2rem; }
   .event-grid{ grid-template-columns:1fr; gap:1.2rem; }
+  .member-grid,
+  .member-spotlight-grid{ grid-template-columns:1fr; }
 }
 
 /* -------------------- Custom Cursor -------------------- */
