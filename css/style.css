@@ -806,6 +806,9 @@ section{ position:relative; }
 .leader__name{ margin-top:1.6rem; font-weight:700; }
 .leader__role{ font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-500); }
 .leader p.leader__bio{ margin-top:1.4rem; color:var(--ink-500); }
+.leader .expandable-text{ margin-top:1.4rem; }
+.leader .expandable-text__content p{ font-size:1rem; line-height:1.7; }
+.leader .expandable-text__content p + p{ margin-top:.9rem; }
 
 /* EXCO strip */
 .exco-strip{
