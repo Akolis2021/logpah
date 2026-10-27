@@ -167,7 +167,7 @@
     );
 
     const fontsReady = document.fonts && document.fonts.ready
-      ? document.fonts.ready.catch(() => {})
+      ? document.fonts.ready.catch(() => { })
       : Promise.resolve();
 
     const heroReady = new Promise((resolve) => {
@@ -518,7 +518,7 @@
     });
   }
 
-  /* ---------------- Gallery grid (gallery.html) ----------------
+  /* ---------------- Gallery grid  ----------------
      The gallery grid uses native CSS Grid with uniform 4:3 cards matching
      the scale and proximity of the Members and Our Story pages.
      Refreshes ScrollTrigger once images settle. */
@@ -536,7 +536,7 @@
     }
   }
 
-  /* ---------------- Gallery filter (gallery.html) ---------------- */
+  /* ---------------- Gallery filter  ---------------- */
   function initGallery() {
     const chips = document.querySelectorAll(".filter-chip");
     const items = document.querySelectorAll(".masonry__item");
@@ -615,7 +615,7 @@
     });
   }
 
-  /* ---------------- Video Lightbox Modal (gallery.html) ---------------- */
+  /* ---------------- Video Lightbox Modal ---------------- */
   function initVideoModal() {
     const triggers = document.querySelectorAll("[data-video]");
     const modal = document.querySelector(".video-modal");
@@ -632,7 +632,7 @@
         player.style.display = "block";
         if (emptyNotice) emptyNotice.style.display = "none";
         player.src = videoSrc;
-        player.play().catch(() => {});
+        player.play().catch(() => { });
       } else {
         player.style.display = "none";
         player.pause();
@@ -675,7 +675,7 @@
     });
   }
 
-  /* ---------------- Events Calendar Filter (index.html) ---------------- */
+  /* ---------------- Events Calendar Filter ---------------- */
   function initEventsFilter() {
     const chips = document.querySelectorAll(".events-filter .filter-chip");
     const cards = document.querySelectorAll(".event-card");
@@ -1264,7 +1264,7 @@
       });
     });
   }
-  /* ================ 12. Member Cards Fan-In (members.html) ================ */
+  /* ================ 12. Member Cards Fan-In ================ */
   function initMemberCardsReveal() {
     if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
 

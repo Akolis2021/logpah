@@ -5,6 +5,8 @@
 **Founded:** August 2016, Lagos, Nigeria
 **Site theme:** "A Decade of Elegance and Excellence" · 10th anniversary framing, targeting 2026
 **Stack:** Static HTML/CSS/JS, no build step, no framework. GSAP 3.12.5 + ScrollTrigger via CDN.
+**Live site:** https://www.logpah.com (hosted on Vercel, auto-deploys from `master`;
+domain registered at Nameslink, see §9)
 **Repo:** https://github.com/Akolis2021/logpah, client's `details.md` in the repo root is the
 running source-of-truth content brief; read it alongside this log.
 
@@ -20,9 +22,12 @@ logpah/
 ├── index.html                 Home
 ├── our-story.html              About Us + Milestones + Founder & CEO + EXCO strip
 ├── members.html                 Founder spotlight + Executive Council grid (6 real roles)
-├── business-directory.html   NEW: Members' Business Directory (4 real listings)
+├── business-directory.html   NEW: Members' Business Directory (5 real listings)
 ├── gallery.html                 Masonry gallery (75 tiles) + Gbagada Hospital feature
 ├── get-involved.html         Ways to help + Become a Sponsor + contact form
+├── vercel.json                 Clean URLs, no .html in addresses (see §9)
+├── robots.txt                  Crawl rules + sitemap pointer (see §10)
+├── sitemap.xml                 The six public pages on the www host (see §10)
 ├── css/style.css               ~1400 lines, all styling, design tokens at top
 ├── js/main.js                     ~1000 lines, all interactivity (see §4)
 ├── details.md                    Client's content brief, growing over time
@@ -47,7 +52,10 @@ logpah/
     └── (original 10 stock photos from the Facebook scrape, still in use)
 ```
 
-No build tools. Drop into any static host or open `index.html` directly.
+No build tools. Drop into any static host that supports clean URLs (Vercel does via
+`vercel.json`, see §9). Because internal links now start with `/`, opening the HTML
+files straight from disk will not navigate correctly: test locally with `npx serve`
+or `npx vercel dev`.
 
 ---
 
@@ -217,6 +225,11 @@ No build tools. Drop into any static host or open `index.html` directly.
   use a gold sparkle (✦) rather than a dash/line, also via one shared rule.
 - "5 pillars" to "7 values" swap (from an earlier guessed list to the
   client's real 7 core values). Fully retired, don't reintroduce.
+- Clean URLs everywhere: internal links never end in `.html` (`/our-story`, not
+  `our-story.html`). One canonical host, `https://www.logpah.com`; the bare domain
+  and `logpah.vercel.app` both redirect to it so Google sees a single site.
+- Every new page gets its own title, description, canonical and social tags, and a
+  line in `sitemap.xml` (checklist in §10).
 
 ---
 
@@ -264,7 +277,7 @@ than growing the nav further, before building the remaining not-started items.
   bottom plate; first real content pass (mission, vision, values, milestones,
   founding year correction); em dash removal + placeholder-image system
   (editable `src` paths).
-- v10 (current), major pass from the client's expanded `details.md`
+- v10, major pass from the client's expanded `details.md`
   (business directory, sponsor page, founder identity, exact image folder
   structure):
   - Renamed real photo folders to clean numbered sequences (1st, 5th,
@@ -286,6 +299,17 @@ than growing the nav further, before building the remaining not-started items.
   - Added the real Home page team photos (home1.jpeg, home2.jpeg) in a
     sequence matching the client's exact requested layout.
   - This log rewritten to match.
+- v11 (current), domain, clean URLs and SEO pass:
+  - Connected `logpah.com` (Nameslink DNS pointing to Vercel). `logpah.com` and
+    `logpah.vercel.app` both redirect to `www.logpah.com` (see §9).
+  - Added `vercel.json` (clean URLs), `robots.txt` and `sitemap.xml`.
+  - Rewrote every internal page link across the six pages from `page.html` to
+    `/page` (home is `/`). A one-time script was used for this and is not in the repo.
+  - Replaced each page's title and description with page-specific SEO tags,
+    canonical links, Open Graph tags and Twitter card tags. Added NGO structured
+    data (JSON-LD) to the home page.
+  - Added §9 (domain, hosting, clean URLs) and §10 (SEO) to this log.
+  - Corrected the Business Directory count in the file tree to 5 listings.
 
 ---
 
@@ -305,3 +329,85 @@ than growing the nav further, before building the remaining not-started items.
 6. Before adding new top-level nav pages, resolve the nav-grouping question
    in §6. Six items is likely near the practical limit before it needs a
    "More" dropdown or reorganization.
+7. Before changing links, routes, redirects or the domain, read §9. Before adding
+   a page, follow the new-page checklist in §10.
+
+---
+
+## 9. Domain, hosting and clean URLs
+
+- **Live site:** https://www.logpah.com is the canonical address. `logpah.com`
+  redirects to it (308, set in Vercel), and so does `logpah.vercel.app` (308 Permanent
+  Redirect, set in Vercel > Project > Settings > Domains). Do not link to the
+  vercel.app address anywhere.
+- **Hosting:** Vercel, project `logpah`, Hobby plan. Every push to `master`
+  redeploys automatically.
+- **Domain:** `logpah.com` registered at Nameslink in October 2026 on a one-year
+  promo (limit one per customer). Confirm the exact expiry date, the real renewal
+  price and the auto-renew setting in the Nameslink account, and keep a valid
+  payment card on it. A lapsed domain takes the whole site down.
+- **DNS (managed at Nameslink, nameservers ns1.nameslink.com and ns2.nameslink.com):**
+  - A record: host `@`, value `216.198.79.1` (Vercel)
+  - CNAME record: host `www`, value `b9fda3078663a2f6.vercel-dns-017.com`
+    (no trailing dot, Nameslink rejects it)
+  - Leave any MX or TXT records alone, they belong to email and site verification.
+  - If Vercel ever shows different values in the project's Domains tab, Vercel wins.
+- **Planned move to Spaceship before year two** (cheaper renewal than Nameslink's
+  regular price). Transfers are not allowed in the first 60 days after
+  registration. Start 30 to 45 days before expiry: unlock the domain, get the EPP
+  code, approve the confirmation email, pay at Spaceship. Make sure both DNS
+  records above exist at the new registrar before the transfer completes, or the
+  site goes down.
+
+### Clean URLs (no `.html` in the address bar)
+
+- `vercel.json` sets `cleanUrls: true` and `trailingSlash: false`. Vercel serves
+  `our-story.html` at `/our-story` and redirects any visit to `/our-story.html`
+  to `/our-story`, so old links keep working.
+- Link rule: internal links never end in `.html`. Use `/` for home and
+  `/our-story`, `/members`, `/business-directory`, `/gallery`, `/get-involved`.
+  Anchors are fine, for example `/gallery#albums`.
+- Asset paths (`css/`, `js/`, `images/`) stay relative. That works because no page
+  lives in a sub-folder. If a page is ever added in a sub-folder, switch that
+  page's asset paths to root-absolute (`/css/style.css`).
+- Opening the HTML files straight from disk no longer navigates correctly,
+  because links now start with `/`. Test locally with `npx serve` (serves clean
+  URLs by default) or `npx vercel dev`.
+- If any script in `js/` compares the current page to a filename ending in
+  `.html` (for example to mark the current nav link), it must also accept the
+  clean path, for example `/our-story`.
+
+---
+
+## 10. SEO setup
+
+- Every page has its own `<title>`, meta description, canonical link, `robots` tag,
+  Open Graph tags and Twitter card tags in `<head>`. Canonical URLs use the clean
+  path on the www host, for example `https://www.logpah.com/our-story`.
+- `index.html` also carries NGO structured data (JSON-LD): name LOGPAH, alternate
+  name Ladies Of Greater Plans And Hope Foundation, founded 2016-08, Lagos,
+  contact email, and the Facebook, Instagram and YouTube profiles as `sameAs`.
+  Keep it in sync with the footer if contact details or social links change.
+- Share images (`og:image`): Home, Our Story and Businesses use
+  `images/anniversary-10yr.jpg`; Members uses `images/home2.jpeg`; Gallery uses
+  `images/outreach-girls.jpg`; Get Involved uses `images/community-selfie.jpg`.
+  Do not rename or delete these files without updating the tags.
+- `robots.txt` allows all crawlers and points to
+  `https://www.logpah.com/sitemap.xml`.
+- `sitemap.xml` lists the six public pages. Update it whenever a page is added or
+  removed, and bump `lastmod` after major content changes.
+
+**New-page checklist**
+1. Add title, description, canonical, Open Graph and Twitter tags to the page head.
+2. Add the page to `sitemap.xml`.
+3. Link to it with a clean path (no `.html`).
+4. Add it to the nav and footer on every page.
+
+**Off-site steps (pending, done by the site owner, not in code)**
+- Google Search Console: add `logpah.com` as a Domain property, verify with a TXT
+  record at Nameslink, submit the sitemap, then use URL Inspection to request
+  indexing of the home page.
+- Bing Webmaster Tools: same steps.
+- Put `https://www.logpah.com` in the Instagram, Facebook and YouTube profiles.
+- Confirm both redirects work: `logpah.com` and `logpah.vercel.app` should land on
+  `www.logpah.com`.
