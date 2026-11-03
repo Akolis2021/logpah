@@ -1373,6 +1373,24 @@
         return;
       }
 
+      // Helper to reset button state
+      const resetButton = () => {
+        if (submitBtn) {
+          submitBtn.classList.remove("btn--loading");
+          submitBtn.disabled = false;
+        }
+        if (btnSpinner) {
+          if (window.gsap) {
+            gsap.killTweensOf(btnSpinner);
+            gsap.set(btnSpinner, { rotation: 0 });
+          }
+          btnSpinner.style.display = "none";
+        }
+        if (btnText) {
+          btnText.textContent = "Send Message";
+        }
+      };
+
       // Enter appealing luxury loading state
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -1380,6 +1398,15 @@
       }
       if (btnSpinner) {
         btnSpinner.style.display = "inline-flex";
+        if (window.gsap) {
+          gsap.killTweensOf(btnSpinner);
+          gsap.to(btnSpinner, {
+            rotation: "+=360",
+            duration: 0.75,
+            repeat: -1,
+            ease: "none",
+          });
+        }
       }
       if (btnText) {
         btnText.textContent = "Sending Message...";
@@ -1404,16 +1431,7 @@
         const result = await response.json().catch(() => ({}));
 
         // Reset button state
-        if (submitBtn) {
-          submitBtn.classList.remove("btn--loading");
-          submitBtn.disabled = false;
-        }
-        if (btnSpinner) {
-          btnSpinner.style.display = "none";
-        }
-        if (btnText) {
-          btnText.textContent = "Send Message";
-        }
+        resetButton();
 
         if (response.ok || result.success === "true" || result.success === true) {
           // Clear inputs immediately
@@ -1446,16 +1464,7 @@
         console.error("Form submission error:", err);
 
         // Reset button state
-        if (submitBtn) {
-          submitBtn.classList.remove("btn--loading");
-          submitBtn.disabled = false;
-        }
-        if (btnSpinner) {
-          btnSpinner.style.display = "none";
-        }
-        if (btnText) {
-          btnText.textContent = "Send Message";
-        }
+        resetButton();
 
         if (window.Swal) {
           Swal.fire({
