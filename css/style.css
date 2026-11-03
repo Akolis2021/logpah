@@ -1186,9 +1186,115 @@ section{ position:relative; }
   border-color:var(--gold-600);
   box-shadow:0 0 0 4px rgba(199,154,62,.15);
   outline:none;
-}
 .field textarea{ resize:vertical; min-height:120px; }
 .form-note{ font-size:.82rem; color:var(--ink-500); margin-top:1rem; }
+
+.contact-form button[type="submit"]{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.75rem;
+  min-width:175px;
+  min-height:50px;
+  position:relative;
+  overflow:hidden;
+  transition:all .35s var(--ease-silk);
+}
+.contact-form button[type="submit"]:disabled{
+  cursor:not-allowed;
+  pointer-events:none;
+}
+.contact-form button[type="submit"].btn--loading{
+  background: linear-gradient(90deg, #b08530 0%, #e4c574 50%, #b08530 100%) !important;
+  background-size: 200% 100% !important;
+  animation: shimmerSweep 1.3s ease-in-out infinite !important;
+  box-shadow: 0 10px 28px -6px rgba(176, 133, 48, 0.6) !important;
+  color: #ffffff !important;
+  cursor: wait !important;
+  pointer-events: none;
+}
+@keyframes shimmerSweep{
+  0%{ background-position: 200% 0; }
+  100%{ background-position: -200% 0; }
+}
+.btn-spinner{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+.spin-ring{
+  animation: spinRing .7s linear infinite;
+  display: block;
+}
+@keyframes spinRing{
+  to{ transform: rotate(360deg); }
+}
+
+/* -------------------- SweetAlert2 Theme Customization -------------------- */
+div:where(.swal2-container).swal2-backdrop-show{
+  background: rgba(8, 15, 36, 0.68) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup).logpah-swal-popup{
+  background: var(--cream-50) !important;
+  border: 1px solid var(--cream-200) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 2.4rem 2rem 2.2rem !important;
+  box-shadow: 0 32px 70px -20px rgba(8, 15, 36, 0.4) !important;
+  font-family: var(--font-body) !important;
+}
+
+.logpah-swal-title{
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  color: var(--navy-950) !important;
+  font-size: clamp(1.6rem, 3vw, 2.1rem) !important;
+  margin-top: .8rem !important;
+}
+
+.logpah-swal-html{
+  font-family: var(--font-body) !important;
+  color: var(--ink-700) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  margin-top: .8rem !important;
+}
+
+.logpah-swal-btn{
+  background: linear-gradient(135deg, var(--gold-600) 0%, var(--gold-700) 100%) !important;
+  color: #ffffff !important;
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  font-size: .95rem !important;
+  letter-spacing: .03em !important;
+  padding: .9rem 2.5rem !important;
+  border-radius: 999px !important;
+  border: none !important;
+  cursor: pointer !important;
+  box-shadow: 0 10px 24px -8px rgba(169, 126, 43, 0.5) !important;
+  transition: transform .25s ease, box-shadow .25s ease !important;
+  margin-top: 1.5rem !important;
+}
+
+.logpah-swal-btn:hover{
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 28px -6px rgba(169, 126, 43, 0.65) !important;
+}
+
+div:where(.swal2-icon).swal2-success{
+  border-color: var(--gold-600) !important;
+  color: var(--gold-600) !important;
+}
+
+div:where(.swal2-icon).swal2-success [class^='swal2-success-line']{
+  background-color: var(--gold-600) !important;
+}
+
+div:where(.swal2-icon).swal2-success .swal2-success-ring{
+  border-color: rgba(199, 154, 62, 0.35) !important;
+}
 
 /* -------------------- Album placeholders (gallery.html) --------------------
    Every album slot renders as a real <img>, pointed at

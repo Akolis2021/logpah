@@ -63,6 +63,7 @@
     initTileGridAnimations();
     initMemberCardsReveal();
     initExpandableText();
+    initContactForm();
   });
 
   /* =====================================================================
@@ -1347,6 +1348,135 @@
       // Run check on mount and resize
       setTimeout(checkOverflow, 120);
       window.addEventListener("resize", checkOverflow);
+    });
+  }
+
+  /* ================ 14. Contact Form AJAX Submission ================ */
+  function initContactForm() {
+    const form = document.querySelector(".contact-form");
+    if (!form) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const btnText = submitBtn ? submitBtn.querySelector(".btn-text") || submitBtn : null;
+    const btnSpinner = submitBtn ? submitBtn.querySelector(".btn-spinner") : null;
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const action = form.getAttribute("action");
+      if (!action || action.startsWith("mailto:")) {
+        return;
+      }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Enter appealing luxury loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add("btn--loading");
+      }
+      if (btnSpinner) {
+        btnSpinner.style.display = "inline-flex";
+      }
+      if (btnText) {
+        btnText.textContent = "Sending Message...";
+      }
+
+      try {
+        const formData = new FormData(form);
+        const dataObj = {};
+        formData.forEach((value, key) => {
+          dataObj[key] = value;
+        });
+
+        const response = await fetch(action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify(dataObj),
+        });
+
+        const result = await response.json().catch(() => ({}));
+
+        // Reset button state
+        if (submitBtn) {
+          submitBtn.classList.remove("btn--loading");
+          submitBtn.disabled = false;
+        }
+        if (btnSpinner) {
+          btnSpinner.style.display = "none";
+        }
+        if (btnText) {
+          btnText.textContent = "Send Message";
+        }
+
+        if (response.ok || result.success === "true" || result.success === true) {
+          // Clear inputs immediately
+          form.reset();
+
+          // Display branded luxury SweetAlert popup
+          if (window.Swal) {
+            Swal.fire({
+              title: "Message Sent!",
+              html: "Thank you for reaching out to <strong>LOGPAH</strong>.<br>Our administration team has received your note and will get back to you shortly.",
+              icon: "success",
+              confirmButtonText: "Done",
+              customClass: {
+                popup: "logpah-swal-popup",
+                title: "logpah-swal-title",
+                htmlContainer: "logpah-swal-html",
+                confirmButton: "logpah-swal-btn",
+              },
+              buttonsStyling: false,
+              showCloseButton: true,
+              backdrop: `rgba(8, 15, 36, 0.68)`,
+            });
+          } else {
+            alert("Thank you! Your message has been sent successfully.");
+          }
+        } else {
+          throw new Error(result.message || "Failed to submit message");
+        }
+      } catch (err) {
+        console.error("Form submission error:", err);
+
+        // Reset button state
+        if (submitBtn) {
+          submitBtn.classList.remove("btn--loading");
+          submitBtn.disabled = false;
+        }
+        if (btnSpinner) {
+          btnSpinner.style.display = "none";
+        }
+        if (btnText) {
+          btnText.textContent = "Send Message";
+        }
+
+        if (window.Swal) {
+          Swal.fire({
+            title: "Unable to Send",
+            html: "We couldn't deliver your message right now. Please try again or reach out to us directly via email.",
+            icon: "error",
+            confirmButtonText: "Try Again",
+            customClass: {
+              popup: "logpah-swal-popup",
+              title: "logpah-swal-title",
+              htmlContainer: "logpah-swal-html",
+              confirmButton: "logpah-swal-btn",
+            },
+            buttonsStyling: false,
+            showCloseButton: true,
+            backdrop: `rgba(8, 15, 36, 0.68)`,
+          });
+        } else {
+          alert("Unable to send message right now. Please try again or email us directly.");
+        }
+      }
     });
   }
 })();
