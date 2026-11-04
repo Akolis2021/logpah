@@ -459,6 +459,7 @@ section{ position:relative; }
 .section--dark{ background:var(--navy-950); color:var(--cream-50); }
 .section--cream{ background:var(--cream-50); }
 .section--panel{ background:var(--cream-100); }
+.section--sand{ background:var(--cream-100); }
 
 .section-head{
   max-width:640px;
@@ -1186,6 +1187,7 @@ section{ position:relative; }
   border-color:var(--gold-600);
   box-shadow:0 0 0 4px rgba(199,154,62,.15);
   outline:none;
+}
 .field textarea{ resize:vertical; min-height:120px; }
 .form-note{ font-size:.82rem; color:var(--ink-500); margin-top:1rem; }
 
